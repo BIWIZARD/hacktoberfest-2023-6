@@ -1,0 +1,47 @@
+Given a string S which only contains lowercase alphabets. Find the length of the longest substring of S such that the characters in it can be rearranged to form a palindrome.
+
+
+Example 1:
+
+Input:
+S = "aabe"
+Output:
+3
+Explanation:
+The substring "aab" can be rearranged to
+"aba" which is the longest palindrome
+possible for this String.
+
+
+
+def longestPalindromicSubstring(s):
+    from collections import Counter
+    
+    # Count the frequency of each character in the string
+    char_count = Counter(s)
+    
+    # Initialize variables to track the length of the longest palindrome and whether an odd-length character is allowed
+    max_length = 0
+    odd_length_allowed = False
+    
+    for char in char_count:
+        count = char_count[char]
+        
+        # If the count is even, add it to the max length directly
+        if count % 2 == 0:
+            max_length += count
+        # If the count is odd, add (count - 1) to the max length and set odd_length_allowed to True
+        else:
+            max_length += count - 1
+            odd_length_allowed = True
+    
+    # If odd-length characters are allowed, add 1 to the max length
+    if odd_length_allowed:
+        max_length += 1
+    
+    return max_length
+
+# Example
+s = "aabe"
+result = longestPalindromicSubstring(s)
+print(result)
